@@ -1,0 +1,164 @@
+* {
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: black;
+  color: white;
+}
+
+header {
+  height: 75px;
+  background-color: #16c6ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+button.nav {
+  color: white;
+  background-color: #16c6ff;
+  border-radius: 1rem;
+  font-size: 25px;
+  padding: 5px 10px;
+  margin-bottom: 15px;
+}
+
+label {
+  font-size: 30px;
+}
+
+input {
+  background-color: white;
+  color: black;
+  padding: 15px 40px;
+  font-size: 20px;
+  text-align: center;
+}
+
+ul {
+  background-color: white;
+  padding: 0;
+}
+
+li {
+  background-color: white;
+  padding: 0;
+  border-bottom: black solid 2px;
+  align-items: center;
+}
+
+form {
+  position: relative;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+button.see-tix {
+  border: #12a8da 5px solid;
+  background-color: #16c6ff;
+  padding: 5px 20px;
+  height: 50%;
+  text-align: center;
+  margin-right: 10px;
+}
+
+button.save {
+  border: #16ae46 5px solid;
+  background-color: #1dd256;
+  padding: 5px 20px;
+  height: 50%;
+  text-align: center;
+  margin-right: 10px;
+}
+
+h2.text-title {
+  font-size: 25px;
+  margin: 10 0 0;
+}
+
+h1.header-text {
+  font-size: 50px;
+  color: #4f6bff;
+  text-shadow: 1px 1px 3px black;
+  font-family: Anton, sans-serif;
+  font-style: italic;
+  letter-spacing: 3px;
+}
+
+h1.vamos-title {
+  font-size: 100px;
+  color: #4f6bff;
+  font-family: Anton, sans-serif;
+  font-style: italic;
+  letter-spacing: 3px;
+  margin: 0 0 0 10px;
+}
+
+img.pic-title {
+  position: absolute;
+  width: 100%;
+  margin-left: 0;
+  left: 0;
+}
+
+.list-img {
+  height: 50px;
+  margin: 10px 25px;
+  object-fit: cover;
+  background-color: white;
+  color: black;
+  width: 100px;
+}
+
+.name {
+  width: 100px;
+  background-color: white;
+  color: black;
+}
+
+.venue-and-date {
+  justify-content: space-between;
+  width: 400px;
+  align-items: center;
+}
+
+p.list-text {
+  background-color: white;
+  color: black;
+  margin-top: 25px;
+  margin-left: 25px;
+}
+
+.browse-btn,
+.my-events-btn,
+.browse-btn-home,
+.my-events-btn-home {
+  margin-left: 25px;
+  margin-top: 25px;
+}
+
+.header-text {
+  background-color: #16c6ff;
+}
+
+.white-back {
+  background-color: white;
+  align-items: center;
+}
+
+.submit-search {
+  color: white;
+  background-color: #4f6bff;
+  border-radius: 1rem;
+  font-size: 25px;
+  padding: 5px 10px;
+  margin-bottom: 15px;
+}
+
+.submit-search:hover {
+  cursor: pointer;
+}
+
+.search-input {
+  margin: 10px;
+}

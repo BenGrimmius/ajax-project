@@ -1,0 +1,64 @@
+.hidden {
+  display: none;
+}
+
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 0.75rem;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.col-full,
+.col-half,
+.col-third {
+  width: 100%;
+}
+
+.space-between {
+  justify-content: space-between;
+}
+
+.space-evenly {
+  justify-content: space-evenly;
+}
+
+.center {
+  justify-content: center;
+}
+
+.align-end {
+  align-self: flex-end;
+}
+
+.flex-end {
+  justify-content: flex-end;
+}
+
+.flex {
+  display: flex;
+}
+
+@media only screen and (min-width: 750px) {
+  .container {
+    max-width: 900px;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .col-half {
+    flex-basis: 50%;
+  }
+
+  .col-third {
+    flex-basis: 33%;
+  }
+
+  .col-10 {
+    flex-basis: 10%;
+  }
+}
