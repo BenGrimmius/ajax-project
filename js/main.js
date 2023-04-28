@@ -11,6 +11,7 @@ var $headerText = document.querySelector('.header-text');
 
 var $browseForm = document.querySelector('.browse-form');
 var $browseList = document.querySelector('#browse-list');
+var $savedList = document.querySelector('#saved-list');
 
 function showBrowse() {
   $mainScreen.classList = 'container maine-screen hidden';
@@ -42,7 +43,7 @@ $myEventsBtn.addEventListener('click', function () {
   showMyEvents();
 });
 
-$browseForm.addEventListener('submit', function (event) {
+$browseForm.addEventListener('submit', function () {
   event.preventDefault();
   $browseList.innerHTML = '';
 
@@ -69,11 +70,11 @@ $browseForm.addEventListener('submit', function (event) {
       $name.textContent = xhrbrowse.response._embedded.events[i].name;
 
       var $pDate = document.createElement('p');
-      $pDate.classList = 'list-text';
+      $pDate.classList = 'list-text date';
       $pDate.textContent = xhrbrowse.response._embedded.events[i].dates.start.localDate;
 
       var $pLocation = document.createElement('p');
-      $pLocation.classList = 'list-text';
+      $pLocation.classList = 'location';
       $pLocation.textContent =
     `${xhrbrowse.response._embedded.events[i]._embedded.venues[0].city.name},
     ${xhrbrowse.response._embedded.events[i]._embedded.venues[0].country.countryCode}`;
@@ -108,7 +109,31 @@ $browseForm.addEventListener('submit', function (event) {
       $browseList.append(listArray[0]);
 
     }
-
   });
   xhrbrowse.send();
+});
+
+var savedEvents = [];
+
+$browseList.addEventListener('click', e => {
+  if (e.target.classList.contains('save')) {
+    var listItem = e.target.parentElement.parentElement;
+    e.target.classList = 'save fa-solid fa-check';
+    e.target.textContent = '';
+    listItem.entryID = data.nextEntryID;
+    savedEvents.push(listItem);
+  }
+  savedEvents.forEach(item => {
+    var savedItem = document.createElement('li');
+    savedItem.innerHTML = item.innerHTML;
+    savedItem.classList = 'row space-between';
+    $savedList.appendChild(savedItem);
+  });
+});
+
+$savedList.addEventListener('click', e => {
+  if (e.target.classList.contains('fa-check')) {
+    var listItem = e.target.parentElement.parentElement;
+    $savedList.removeChild(listItem);
+  }
 });

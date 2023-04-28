@@ -1,4 +1,5 @@
 /* exported data */
 var data = {
-  view: 'main'
+  view: 'main',
+  nextEntryID: 1
 };

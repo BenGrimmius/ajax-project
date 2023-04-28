@@ -111,22 +111,29 @@ img.pic-title {
 }
 
 .name {
-  width: 100px;
+  width: 200px;
   background-color: white;
   color: black;
 }
 
 .venue-and-date {
   justify-content: space-between;
-  width: 400px;
+  width: 450px;
   align-items: center;
 }
 
-p.list-text {
+p.location {
   background-color: white;
   color: black;
   margin-top: 25px;
+  margin-left: 10px;
+}
+
+.date {
   margin-left: 25px;
+  background-color: white;
+  color: black;
+  width: 100px;
 }
 
 .browse-btn,
