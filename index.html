@@ -4,15 +4,77 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AJAX Project</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="icon" href="images/favicon.ico">
   <link rel="stylesheet" href="css/reset.css">
   <link rel="stylesheet" href="css/layout.css">
   <link rel="stylesheet" href="css/styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
 </head>
 <body>
   <header>
+    <h1 class="header-text"></h1>
   </header>
-  <main>
+  <main class="splatter">
+    <div class="container main-screen" data-view="main">
+      <div class="row">
+        <h2 class="text-title">Welcome to</h2>
+      </div>
+      <div class="row">
+        <h1 class="vamos-title">Vamos</h1>
+      </div>
+      <div class="row space-between">
+        <h2 class="text-title">Start your journy to unforgettable moments</h2>
+      </div>
+      <div class="row flex-end">
+        <button class="browse-btn-home nav">Browse<br>Events</button>
+        <button class="my-events-btn-home nav">My<br>Events</button>
+      </div>
+      <div class="row">
+        <img class="pic-title" src="https://i.pinimg.com/originals/69/d0/7f/69d07f5b4e21ac19a3bdebbbdd6d2cc1.jpg">
+      </div>
+    </div>
+
+    <div class="container browse-events-screen hidden" data-view="browse">
+      <div class="col-full">
+        <div class="row">
+          <button class="my-events-btn nav">My<br>Events</button>
+        </div>
+      </div>
+      <div class="col-full">
+        <form class="browse-form">
+          <div class="row center">
+            <label for="search" style="text-align: right;">Search</label>
+          </div>
+          <div class="row center">
+            <input class="col-third search-input" type="text" id="search" placeholder="Location or Event">
+          </div>
+          <div class="row center">
+            <input class="submit-search" type="submit">
+          </div>
+        </form>
+        <div class="row">
+          <ul id="browse-list" class="col-full">
+
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="container my-events-screen hidden" data-view="events">
+      <div class="row">
+        <button class="browse-btn nav">Browse<br>Events</button>
+      </div>
+      <div class="row">
+        <ul id="saved-list" class="col-full">
+
+        </ul>
+      </div>
+    </div>
   </main>
   <script src="js/data.js"></script>
   <script src="js/main.js"></script>
