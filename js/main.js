@@ -6,12 +6,16 @@ var $browseBtnHome = document.querySelector('.browse-btn-home');
 var $myEventsBtnHome = document.querySelector('.my-events-btn-home');
 var $browseBtn = document.querySelector('.browse-btn');
 var $myEventsBtn = document.querySelector('.my-events-btn');
+// var $cancelSend = document.querySelector('.cancel-send');
 
 var $headerText = document.querySelector('.header-text');
 
 var $browseForm = document.querySelector('.browse-form');
 var $browseList = document.querySelector('#browse-list');
 var $savedList = document.querySelector('#saved-list');
+// var $emailForm = document.querySelector('.email-form');
+
+// var $modalContainer = document.querySelector('.modal-container');
 
 function showBrowse() {
   $mainScreen.classList = 'container maine-screen hidden';
@@ -43,6 +47,13 @@ $myEventsBtn.addEventListener('click', function () {
   showMyEvents();
 });
 
+// $emailForm.addEventListener('submit', emailSubmit);
+
+// $cancelSend.addEventListener('click', () => {
+//   event.preventDefault();
+//   $modalContainer.classList = 'modal-container hidden';
+// });
+
 $browseForm.addEventListener('submit', function () {
   event.preventDefault();
   $browseList.innerHTML = '';
@@ -73,11 +84,12 @@ $browseForm.addEventListener('submit', function () {
       $pDate.classList = 'list-text date';
       $pDate.textContent = xhrbrowse.response._embedded.events[i].dates.start.localDate;
 
+      var venue = xhrbrowse.response._embedded.events[i]._embedded.venues[0];
       var $pLocation = document.createElement('p');
       $pLocation.classList = 'location';
-      $pLocation.textContent =
-    `${xhrbrowse.response._embedded.events[i]._embedded.venues[0].city.name},
-    ${xhrbrowse.response._embedded.events[i]._embedded.venues[0].country.countryCode}`;
+      $pLocation.textContent = venue ? `${venue.city.name}, ${venue.country.countryCode}` : 'Location not available';
+      // `${xhrbrowse.response._embedded.events[i]._embedded.venues[0].city.name},
+      // ${xhrbrowse.response._embedded.events[i]._embedded.venues[0].country.countryCode}`;
 
       var $divWhite = document.createElement('div');
       $divWhite.classList = 'white-back';
@@ -86,12 +98,19 @@ $browseForm.addEventListener('submit', function () {
       $saveBtn.classList = 'save';
       $saveBtn.textContent = 'Save';
 
-      var $seeBtn = document.createElement('button');
+      var $seeBtn = document.createElement('a');
       $seeBtn.classList = 'see-tix';
-      $seeBtn.textContent = 'See Tickets';
+      $seeBtn.textContent = 'See';
+      $seeBtn.setAttribute('target', '_blank');
+      $seeBtn.setAttribute('href', xhrbrowse.response._embedded.events[0].url);
 
       var $VenueAndDate = document.createElement('div');
       $VenueAndDate.classList = 'flex venue-and-date white-back align-center';
+
+      // var shareButton = document.createElement('button');
+      // shareButton.classList = 'share';
+      // shareButton.textContent = 'Share';
+      // shareButton.addEventListener('click', share);
 
       $li.appendChild($VenueAndDate);
 
@@ -103,6 +122,7 @@ $browseForm.addEventListener('submit', function () {
       $li.appendChild($divWhite);
       $divWhite.appendChild($saveBtn);
       $divWhite.appendChild($seeBtn);
+      // $divWhite.appendChild(shareButton);
 
       listArray.push($li);
 
@@ -113,27 +133,53 @@ $browseForm.addEventListener('submit', function () {
   xhrbrowse.send();
 });
 
-var savedEvents = [];
-
 $browseList.addEventListener('click', e => {
+  var savedEvents = [];
+
   if (e.target.classList.contains('save')) {
     var listItem = e.target.parentElement.parentElement;
-    e.target.classList = 'save fa-solid fa-check';
-    e.target.textContent = '';
     listItem.entryID = data.nextEntryID;
+    data.nextEntryID += 1;
     savedEvents.push(listItem);
+    data.saved.push(listItem);
   }
   savedEvents.forEach(item => {
     var savedItem = document.createElement('li');
     savedItem.innerHTML = item.innerHTML;
     savedItem.classList = 'row space-between';
+    savedItem.lastChild.firstChild.classList = 'delete';
+    savedItem.lastChild.firstChild.textContent = 'Remove';
+    // savedItem.lastChild.lastChild.addEventListener('click', share);
     $savedList.appendChild(savedItem);
   });
+
+  if ($savedList.children.length === 0) {
+    var emptyMessage = document.createElement('li');
+    emptyMessage.classList = 'empty-message';
+    emptyMessage.textContent = 'You have no saved events';
+    $savedList.appendChild(emptyMessage);
+  }
 });
 
 $savedList.addEventListener('click', e => {
-  if (e.target.classList.contains('fa-check')) {
+  if (e.target.classList.contains('delete')) {
     var listItem = e.target.parentElement.parentElement;
     $savedList.removeChild(listItem);
+    for (var i = 0; i < data.saved.length; i++) {
+      if (listItem.entryID === data.saved[i].entryID) {
+        data.saved.splice(i, 1);
+      }
+    }
   }
 });
+
+// function share() {
+//   $modalContainer.classList = 'modal-container';
+// }
+
+// function emailSubmit() {
+//   event.preventDefault();
+//   var emailAddress = $emailForm[0].value;
+//   $emailForm.setAttribute('action', 'mailto:' + emailAddress);
+//   $emailForm.submit();
+// }
