@@ -1,7 +1,14 @@
 * {
   font-family: Arial, Helvetica, sans-serif;
-  background-color: black;
+
+  /* background-color: black; */
   color: white;
+}
+
+body {
+  background-image: url("/images/Splatter.png");
+  background-position: fixed;
+  background-size: 100;
 }
 
 header {
@@ -53,22 +60,50 @@ button:hover {
   cursor: pointer;
 }
 
-button.see-tix {
+a.see-tix {
   border: #12a8da 5px solid;
   background-color: #16c6ff;
-  padding: 5px 20px;
-  height: 50%;
+  padding: 0 10px;
+  height: 30%;
   text-align: center;
   margin-right: 10px;
+  text-decoration: none;
+  font-size: 15px;
 }
 
 button.save {
   border: #16ae46 5px solid;
   background-color: #1dd256;
-  padding: 5px 20px;
+  padding: 0 10px;
   height: 50%;
   text-align: center;
   margin-right: 10px;
+}
+
+button.delete {
+  border: #e21818 5px solid;
+  background-color: #d04a4a;
+  padding: 0 10px;
+  height: 50%;
+  text-align: center;
+  margin-right: 10px;
+}
+
+button.share {
+  border: 5px solid #680074;
+  background-color: #7f048d;
+  margin-right: 5px;
+  padding: 0, 10px;
+  height: 50%;
+  text-align: center;
+}
+
+.save:active,
+.delete:active,
+.share:active,
+.see-tix:active {
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
 }
 
 h2.text-title {
@@ -111,7 +146,7 @@ img.pic-title {
 }
 
 .name {
-  width: 200px;
+  width: 100px;
   background-color: white;
   color: black;
 }
@@ -168,4 +203,59 @@ p.location {
 
 .search-input {
   margin: 10px;
+}
+
+.modal-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgb(0 0 0 / 50%);
+}
+
+.modal {
+  position: relative;
+  margin: 200px auto;
+  width: 400px;
+  height: 250px;
+  background-color: rgb(206, 206, 206);
+  border: 5px gray solid;
+  z-index: 1;
+  border-radius: 4px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+.modal-text {
+  background-color: rgb(206, 206, 206);
+  color: black;
+  padding: 0;
+  margin-bottom: 10px;
+  font-size: 30px;
+  display: block;
+}
+
+.cancel-send {
+  margin: 10px;
+  border: #b1230a 5px solid;
+  background-color: #e84a3e;
+  width: 70px;
+  height: 30px;
+  font-size: 15px;
+}
+
+.send-button {
+  margin: 10px;
+  border: #16ae46 5px solid;
+  background-color: #1dd256;
+  width: 60px;
+  height: 30px;
+  font-size: 15px;
+}
+
+.empty-message {
+  color: white;
 }

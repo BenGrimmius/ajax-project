@@ -43,6 +43,15 @@
   display: flex;
 }
 
+.d-block {
+  display: block;
+}
+
+.fd-col {
+  display: flex;
+  flex-direction: column;
+}
+
 @media only screen and (min-width: 750px) {
   .container {
     max-width: 900px;
