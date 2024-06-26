@@ -13,11 +13,18 @@ var $browseForm = document.querySelector('.browse-form');
 var $browseList = document.querySelector('#browse-list');
 var $savedList = document.querySelector('#saved-list');
 
+var data = {
+  view: 'main',
+  nextEntryID: 1,
+  saved: []
+};
+
 function showBrowse() {
   $mainScreen.classList = 'container maine-screen hidden';
   $browseScreen.classList = 'container browse-events-screen';
   $myEventsScreen.classList = 'container my-events-screen hidden';
   $headerText.textContent = 'Browse Events';
+  clearBrowseList();
 }
 
 function showMyEvents() {
@@ -25,27 +32,21 @@ function showMyEvents() {
   $myEventsScreen.classList = 'container my-events-screen';
   $browseScreen.classList = 'container browse-events-screen hidden';
   $headerText.textContent = 'My Events';
+  updateSavedList();
 }
 
-$browseBtnHome.addEventListener('click', function () {
-  showBrowse();
-});
-
-$myEventsBtnHome.addEventListener('click', function () {
-  showMyEvents();
-});
-
-$browseBtn.addEventListener('click', function () {
-  showBrowse();
-});
-
-$myEventsBtn.addEventListener('click', function () {
-  showMyEvents();
-});
-
-$browseForm.addEventListener('submit', function () {
-  event.preventDefault();
+function clearBrowseList() {
   $browseList.innerHTML = '';
+}
+
+$browseBtnHome.addEventListener('click', showBrowse);
+$myEventsBtnHome.addEventListener('click', showMyEvents);
+$browseBtn.addEventListener('click', showBrowse);
+$myEventsBtn.addEventListener('click', showMyEvents);
+
+$browseForm.addEventListener('submit', function (event) {
+  event.preventDefault();
+  clearBrowseList();
 
   var Url = 'https://app.ticketmaster.com/discovery/v2/events?apikey=6HZF5VqmF2fTKIqm0RTY6EwrTbNPOLWU&keyword=' + $browseForm[0].value;
 
@@ -53,87 +54,127 @@ $browseForm.addEventListener('submit', function () {
   xhrbrowse.open('GET', Url);
   xhrbrowse.responseType = 'json';
   xhrbrowse.addEventListener('load', function () {
+    if (xhrbrowse.response._embedded && xhrbrowse.response._embedded.events) {
+      xhrbrowse.response._embedded.events.forEach(function (event) {
+        if (!(event._embedded && event._embedded.venues && event._embedded.venues[0])) {
+          return;
+        }
 
-    for (var i = 0; i < xhrbrowse.response._embedded.events.length; i++) {
+        var $li = document.createElement('li');
+        $li.classList = 'row space-between';
 
-      var listArray = [];
+        var $liImage = document.createElement('img');
+        $liImage.classList = 'list-img';
+        $liImage.setAttribute('src', event.images[1].url);
 
-      var $li = document.createElement('li');
-      $li.classList = 'row space-between';
+        var $name = document.createElement('p');
+        $name.classList = 'name';
+        $name.textContent = event.name;
 
-      var $liImage = document.createElement('img');
-      $liImage.classList = 'list-img';
-      $liImage.setAttribute('src', xhrbrowse.response._embedded.events[i].images[1].url);
+        var $pDate = document.createElement('p');
+        $pDate.classList = 'list-text date';
+        $pDate.textContent = event.dates.start.localDate;
 
-      var $name = document.createElement('p');
-      $name.classList = 'name';
-      $name.textContent = xhrbrowse.response._embedded.events[i].name;
+        var $pLocation = document.createElement('p');
+        $pLocation.classList = 'location';
+        $pLocation.textContent = `${event._embedded.venues[0].city.name}, ${event._embedded.venues[0].country.countryCode}`;
 
-      var $pDate = document.createElement('p');
-      $pDate.classList = 'list-text date';
-      $pDate.textContent = xhrbrowse.response._embedded.events[i].dates.start.localDate;
+        var $divWhite = document.createElement('div');
+        $divWhite.classList = 'white-back';
 
-      var $pLocation = document.createElement('p');
-      $pLocation.classList = 'location';
-      $pLocation.textContent =
-    `${xhrbrowse.response._embedded.events[i]._embedded.venues[0].city.name},
-    ${xhrbrowse.response._embedded.events[i]._embedded.venues[0].country.countryCode}`;
+        var $saveBtn = document.createElement('button');
+        $saveBtn.classList = 'save';
+        $saveBtn.textContent = 'Save';
 
-      var $divWhite = document.createElement('div');
-      $divWhite.classList = 'white-back';
+        var $seeBtn = document.createElement('button');
+        $seeBtn.classList = 'see-tix';
+        $seeBtn.textContent = 'See Tickets';
+        $seeBtn.setAttribute('data-url', event.url);
 
-      var $saveBtn = document.createElement('button');
-      $saveBtn.classList = 'save';
-      $saveBtn.textContent = 'Save';
+        $seeBtn.addEventListener('click', function () {
+          window.open(event.url, '_blank');
+        });
 
-      var $seeBtn = document.createElement('button');
-      $seeBtn.classList = 'see-tix';
-      $seeBtn.textContent = 'See Tickets';
+        var $imageNameDiv = document.createElement('div');
+        $imageNameDiv.classList = 'row';
+        var $datePlaceDiv = document.createElement('div');
+        $datePlaceDiv.classList = 'row';
+        var $saveSeeDiv = document.createElement('div');
+        $saveSeeDiv.classList = 'row';
 
-      var $VenueAndDate = document.createElement('div');
-      $VenueAndDate.classList = 'flex venue-and-date white-back align-center';
+        $li.appendChild($imageNameDiv);
+        $li.appendChild($datePlaceDiv);
+        $li.appendChild($saveSeeDiv);
+        $imageNameDiv.appendChild($liImage);
+        $imageNameDiv.appendChild($name);
+        $datePlaceDiv.appendChild($pDate);
+        $datePlaceDiv.appendChild($pLocation);
+        $saveSeeDiv.appendChild($saveBtn);
+        $saveSeeDiv.appendChild($seeBtn);
 
-      $li.appendChild($VenueAndDate);
-
-      $VenueAndDate.appendChild($liImage);
-      $VenueAndDate.appendChild($name);
-      $VenueAndDate.appendChild($pDate);
-
-      $li.appendChild($pLocation);
-      $li.appendChild($divWhite);
-      $divWhite.appendChild($saveBtn);
-      $divWhite.appendChild($seeBtn);
-
-      listArray.push($li);
-
-      $browseList.append(listArray[0]);
-
+        if ($name.textContent && $pDate.textContent && $pLocation.textContent && $liImage.src) {
+          $browseList.append($li);
+        }
+      });
+    } else {
+      console.error('No events found or response structure is incorrect');
     }
   });
   xhrbrowse.send();
 });
 
-var savedEvents = [];
-
-$browseList.addEventListener('click', e => {
+$browseList.addEventListener('click', function (e) {
   if (e.target.classList.contains('save')) {
     var listItem = e.target.parentElement.parentElement;
     e.target.classList = 'save fa-solid fa-check';
     e.target.textContent = '';
-    listItem.entryID = data.nextEntryID;
-    savedEvents.push(listItem);
+    listItem.entryID = data.nextEntryID++;
+    data.saved.push(listItem);
+
+    updateSavedList();
   }
-  savedEvents.forEach(item => {
-    var savedItem = document.createElement('li');
-    savedItem.innerHTML = item.innerHTML;
-    savedItem.classList = 'row space-between';
-    $savedList.appendChild(savedItem);
-  });
 });
 
-$savedList.addEventListener('click', e => {
-  if (e.target.classList.contains('fa-check')) {
+$savedList.addEventListener('click', function (e) {
+  if (e.target.classList.contains('delete')) {
     var listItem = e.target.parentElement.parentElement;
-    $savedList.removeChild(listItem);
+    var entryID = listItem.entryID;
+    data.saved = data.saved.filter(function (item) {
+      return item.entryID !== entryID;
+    });
+
+    updateSavedList();
+  } else if (e.target.classList.contains('see-tix')) {
+    var url = e.target.getAttribute('data-url');
+    window.open(url, '_blank');
   }
 });
+
+function updateSavedList() {
+  $savedList.innerHTML = '';
+
+  if (data.saved.length === 0) {
+    var emptyMessage = document.createElement('h2');
+    emptyMessage.classList = 'empty-message';
+    emptyMessage.textContent = 'You have no saved events';
+    $savedList.appendChild(emptyMessage);
+  } else {
+    data.saved.forEach(function (item) {
+      var savedItem = document.createElement('li');
+      savedItem.innerHTML = item.innerHTML;
+      savedItem.classList = 'row space-between';
+      savedItem.entryID = item.entryID;
+
+      var seeTicketsButton = savedItem.querySelector('.see-tix');
+      seeTicketsButton.addEventListener('click', function () {
+        var url = savedItem.querySelector('.see-tix').getAttribute('data-url');
+        window.open(url, '_blank');
+      });
+
+      savedItem.lastChild.firstChild.classList = 'delete';
+      savedItem.lastChild.firstChild.textContent = 'Remove';
+
+      $savedList.appendChild(savedItem);
+    });
+  }
+}

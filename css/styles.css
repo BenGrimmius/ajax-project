@@ -1,7 +1,12 @@
 * {
   font-family: Arial, Helvetica, sans-serif;
-  background-color: black;
   color: white;
+}
+
+body {
+  background-image: url("/images/Splatter.png");
+  background-position: fixed;
+  background-size: 100;
 }
 
 header {
@@ -34,8 +39,8 @@ input {
 }
 
 ul {
-  background-color: white;
   padding: 0;
+  width: 100%;
 }
 
 li {
@@ -43,6 +48,7 @@ li {
   padding: 0;
   border-bottom: black solid 2px;
   align-items: center;
+  width: 100%;
 }
 
 form {
@@ -66,6 +72,15 @@ button.save {
   border: #16ae46 5px solid;
   background-color: #1dd256;
   padding: 5px 20px;
+  height: 50%;
+  text-align: center;
+  margin-right: 10px;
+}
+
+button.delete {
+  border: #e21818 5px solid;
+  background-color: #d04a4a;
+  padding: 5px 10px;
   height: 50%;
   text-align: center;
   margin-right: 10px;
@@ -101,10 +116,27 @@ img.pic-title {
   left: 0;
 }
 
+#saved-list {
+  margin: 0;
+  padding: 0;
+}
+
+.empty-message {
+  text-align: center;
+  margin: 0;
+}
+
 .list-img {
   height: 50px;
   margin: 10px 25px;
   object-fit: cover;
+  background-color: white;
+  color: black;
+  width: 100px;
+}
+
+.list-text.date {
+  margin-left: 25px;
   background-color: white;
   color: black;
   width: 100px;
@@ -116,6 +148,11 @@ img.pic-title {
   color: black;
 }
 
+.pic-title {
+  bottom: 0;
+  min-height: 400px;
+}
+
 .venue-and-date {
   justify-content: space-between;
   width: 450px;
@@ -125,8 +162,6 @@ img.pic-title {
 p.location {
   background-color: white;
   color: black;
-  margin-top: 25px;
-  margin-left: 10px;
 }
 
 .date {
@@ -148,11 +183,6 @@ p.location {
   background-color: #16c6ff;
 }
 
-.white-back {
-  background-color: white;
-  align-items: center;
-}
-
 .submit-search {
   color: white;
   background-color: #4f6bff;
@@ -168,4 +198,55 @@ p.location {
 
 .search-input {
   margin: 10px;
+}
+
+@media screen and (max-width: 600px) {
+  .list-text.date {
+    margin: 10px auto;
+    display: block;
+    text-align: center;
+  }
+
+  .location {
+    margin: 5px auto;
+    display: block;
+    text-align: center;
+  }
+
+  li {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border: 1px solid black;
+  }
+
+  .row {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+  }
+
+  .list-img {
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+  }
+
+  .name {
+    flex-grow: 1;
+    margin-right: 10px;
+  }
+
+  .save,
+  .see-tix {
+    padding: 8px 15px;
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+
+  .save-see-div {
+    margin-top: 10px;
+  }
 }
