@@ -151,6 +151,7 @@ img.pic-title {
 .pic-title {
   bottom: 0;
   min-height: 400px;
+  max-height: 600px;
 }
 
 .venue-and-date {
