@@ -13,12 +13,6 @@ var $browseForm = document.querySelector('.browse-form');
 var $browseList = document.querySelector('#browse-list');
 var $savedList = document.querySelector('#saved-list');
 
-var data = {
-  view: 'main',
-  nextEntryID: 1,
-  saved: []
-};
-
 function showBrowse() {
   $mainScreen.classList = 'container maine-screen hidden';
   $browseScreen.classList = 'container browse-events-screen';
