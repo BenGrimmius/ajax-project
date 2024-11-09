@@ -1,9 +1,6 @@
-var $mainScreen = document.querySelector('.main-screen');
 var $browseScreen = document.querySelector('.browse-events-screen');
 var $myEventsScreen = document.querySelector('.my-events-screen');
 
-var $browseBtnHome = document.querySelector('.browse-btn-home');
-var $myEventsBtnHome = document.querySelector('.my-events-btn-home');
 var $browseBtn = document.querySelector('.browse-btn');
 var $myEventsBtn = document.querySelector('.my-events-btn');
 
@@ -14,7 +11,6 @@ var $browseList = document.querySelector('#browse-list');
 var $savedList = document.querySelector('#saved-list');
 
 function showBrowse() {
-  $mainScreen.classList = 'container maine-screen hidden';
   $browseScreen.classList = 'container browse-events-screen';
   $myEventsScreen.classList = 'container my-events-screen hidden';
   $headerText.textContent = 'Browse Events';
@@ -22,7 +18,6 @@ function showBrowse() {
 }
 
 function showMyEvents() {
-  $mainScreen.classList = 'container maine-screen hidden';
   $myEventsScreen.classList = 'container my-events-screen';
   $browseScreen.classList = 'container browse-events-screen hidden';
   $headerText.textContent = 'My Events';
@@ -33,8 +28,6 @@ function clearBrowseList() {
   $browseList.innerHTML = '';
 }
 
-$browseBtnHome.addEventListener('click', showBrowse);
-$myEventsBtnHome.addEventListener('click', showMyEvents);
 $browseBtn.addEventListener('click', showBrowse);
 $myEventsBtn.addEventListener('click', showMyEvents);
 
