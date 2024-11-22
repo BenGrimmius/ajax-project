@@ -5,6 +5,7 @@ var $browseBtn = document.querySelector('.browse-btn');
 var $myEventsBtn = document.querySelector('.my-events-btn');
 
 var $headerText = document.querySelector('.header-text');
+var $textTitle = document.querySelector('.text-title');
 
 var $browseForm = document.querySelector('.browse-form');
 var $browseList = document.querySelector('#browse-list');
@@ -14,6 +15,7 @@ function showBrowse() {
   $browseScreen.classList = 'container browse-events-screen';
   $myEventsScreen.classList = 'container my-events-screen hidden';
   $headerText.textContent = 'Browse Events';
+  $textTitle.classList = 'text-title hidden';
   clearBrowseList();
 }
 
@@ -21,6 +23,8 @@ function showMyEvents() {
   $myEventsScreen.classList = 'container my-events-screen';
   $browseScreen.classList = 'container browse-events-screen hidden';
   $headerText.textContent = 'My Events';
+  $textTitle.classList = 'text-title hidden';
+
   updateSavedList();
 }
 
@@ -34,6 +38,7 @@ $myEventsBtn.addEventListener('click', showMyEvents);
 $browseForm.addEventListener('submit', function (event) {
   event.preventDefault();
   clearBrowseList();
+  $textTitle.classList = 'text-title hidden';
 
   var Url = 'https://app.ticketmaster.com/discovery/v2/events?apikey=6HZF5VqmF2fTKIqm0RTY6EwrTbNPOLWU&keyword=' + $browseForm[0].value;
 
