@@ -87,7 +87,7 @@ button.delete {
 }
 
 h2.text-title {
-  font-size: 25px;
+  font-size: 40px;
   margin: 10 0 0;
 }
 
@@ -107,6 +107,7 @@ h1.vamos-title {
   font-style: italic;
   letter-spacing: 3px;
   margin: 0 0 0 10px;
+  text-shadow: 1px 1px 2px pink;
 }
 
 img.pic-title {
@@ -198,6 +199,13 @@ p.location {
 
 .search-input {
   margin: 10px;
+}
+
+.title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 }
 
 @media screen and (max-width: 600px) {
